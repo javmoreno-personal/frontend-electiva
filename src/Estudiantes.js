@@ -8,7 +8,7 @@ const Estudiantes = () => {
 
   const fetchEstudiantes = async () => {
     try {
-      const response = await axios.get('http://universidadelectiva2.somee.com/api/Estudiante/GetAll');
+      const response = await axios.get('https://universidadelectiva2.somee.com/api/Estudiante/GetAll');
       setEstudiantes(response.data.DatosRespuesta);
     } catch (error) {
       console.error('Error al cargar estudiantes:', error.message);
@@ -21,7 +21,7 @@ const Estudiantes = () => {
 
   const showStudentDetails = async (estudianteId) => {
     try {
-      const response = await axios.get(`http://universidadelectiva2.somee.com/api/Estudiante/GetById/${estudianteId}`);
+      const response = await axios.get(`https://universidadelectiva2.somee.com/api/Estudiante/GetById/${estudianteId}`);
       setEstudianteSeleccionado(response.data.DatosRespuesta);
     } catch (error) {
       console.error(`Error al cargar detalles del estudiante ${estudianteId}:`, error.message);
