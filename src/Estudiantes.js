@@ -1,27 +1,27 @@
+// src/Estudiantes.js
 
-// Estudiantes.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// ... (importaciones)
 
 const Estudiantes = () => {
   const [estudiantes, setEstudiantes] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Lógica para cargar estudiantes desde la API
+    const fetchEstudiantes = async () => {
       try {
         const response = await axios.get('http://universidadelectiva2.somee.com/api/Estudiante/GetAll');
         setEstudiantes(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error al cargar estudiantes:', error);
       }
     };
 
-    fetchData();
+    fetchEstudiantes();
   }, []);
 
   return (
     <div>
-      <h2>Lista de Estudiantes</h2>
+      <h1>Listado de Estudiantes</h1>
       <ul>
         {estudiantes.map((estudiante) => (
           <li key={estudiante.Id}>{estudiante.Nombres} {estudiante.Apellidos}</li>
