@@ -1,8 +1,10 @@
+export default Estudiantes;
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Estudiantes = () => {
   const [estudiantes, setEstudiantes] = useState([]);
+  const [estudianteSeleccionado, setEstudianteSeleccionado] = useState(null);
 
   const fetchEstudiantes = async () => {
     try {
@@ -14,19 +16,21 @@ const Estudiantes = () => {
   };
 
   useEffect(() => {
-    // You can remove the auto-fetch from useEffect if you prefer
-    // and use the button to trigger the fetch manually.
-    // fetchEstudiantes();
+    fetchEstudiantes();
   }, []);
 
-  const showAllStudents = () => {
-    fetchEstudiantes();
+  const showStudentDetails = async (estudianteId) => {
+    try {
+      const response = await axios.get(`http://universidadelectiva2.somee.com/api/Estudiante/GetById/${estudianteId}`);
+      setEstudianteSeleccionado(response.data.DatosRespuesta);
+    } catch (error) {
+      console.error(`Error al cargar detalles del estudiante ${estudianteId}:`, error.message);
+    }
   };
 
   return (
     <div>
       <h1>Listado de Estudiantes</h1>
-      <button onClick={showAllStudents}>Mostrar Todos</button>
       <table>
         <thead>
           <tr>
@@ -51,6 +55,17 @@ const Estudiantes = () => {
           ))}
         </tbody>
       </table>
+
+      {estudianteSeleccionado && (
+        <div>
+          <h2>Detalles del Estudiante</h2>
+          <p>ID: {estudianteSeleccionado.Id}</p>
+          <p>Nombre: {estudianteSeleccionado.Nombres} {estudianteSeleccionado.Apellidos}</p>
+          <p>Edad: {estudianteSeleccionado.Edad}</p>
+          <p>Curso: {estudianteSeleccionado.Curso}</p>
+          {/* Agrega más detalles según tu estructura de datos */}
+        </div>
+      )}
     </div>
   );
 };
