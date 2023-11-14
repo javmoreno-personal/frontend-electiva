@@ -4,7 +4,7 @@ import axios from 'axios';
 const fetchEstudiantes = async () => {
   try {
     const response = await axios.get('http://universidadelectiva2.somee.com/api/Estudiante/GetAll');
-    return response.data;
+    return response.data.DatosRespuesta;
   } catch (error) {
     console.error('Error al cargar estudiantes:', error);
     throw error; // Rethrow the error to indicate that the data fetching failed
@@ -31,11 +31,34 @@ const Estudiantes = () => {
   return (
     <div>
       <h1>Listado de Estudiantes</h1>
-      <ul>
-        {estudiantes.map((estudiante) => (
-          <li key={estudiante.Id}>{estudiante.Nombres} {estudiante.Apellidos}</li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Identificacion</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Edad</th>
+            <th>IdGenero</th>
+            <th>Curso</th>
+            <th>Id</th>
+            <th>Activo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {estudiantes.map((estudiante) => (
+            <tr key={estudiante.Id}>
+              <td>{estudiante.Identificacion}</td>
+              <td>{estudiante.Nombres}</td>
+              <td>{estudiante.Apellidos}</td>
+              <td>{estudiante.Edad}</td>
+              <td>{estudiante.IdGenero}</td>
+              <td>{estudiante.Curso}</td>
+              <td>{estudiante.Id}</td>
+              <td>{estudiante.Activo.toString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
