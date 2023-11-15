@@ -1,4 +1,3 @@
-export default Estudiantes;
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -8,12 +7,16 @@ const Estudiantes = () => {
 
   const fetchEstudiantes = async () => {
     try {
-      const response = await axios.get('https://universidadelectiva2.somee.com/api/Estudiante/GetAll');
+      const response = await axios.get('https://universidadelectiva2.somee.com/api/Estudiante/GetAll', {
+        credentials: 'include'
+      });
       setEstudiantes(response.data.DatosRespuesta);
     } catch (error) {
       console.error('Error al cargar estudiantes:', error.message);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchEstudiantes();
@@ -39,7 +42,6 @@ const Estudiantes = () => {
             <th>Apellidos</th>
             <th>Edad</th>
             <th>Curso</th>
-            {/* Add more headers based on your data */}
           </tr>
         </thead>
         <tbody>
@@ -50,7 +52,6 @@ const Estudiantes = () => {
               <td>{estudiante.Apellidos}</td>
               <td>{estudiante.Edad}</td>
               <td>{estudiante.Curso}</td>
-              {/* Add more cells based on your data */}
             </tr>
           ))}
         </tbody>
@@ -63,7 +64,6 @@ const Estudiantes = () => {
           <p>Nombre: {estudianteSeleccionado.Nombres} {estudianteSeleccionado.Apellidos}</p>
           <p>Edad: {estudianteSeleccionado.Edad}</p>
           <p>Curso: {estudianteSeleccionado.Curso}</p>
-          {/* Agrega más detalles según tu estructura de datos */}
         </div>
       )}
     </div>
